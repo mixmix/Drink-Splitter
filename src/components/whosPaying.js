@@ -39,6 +39,11 @@ const WhosPaying = (props) => {
 
 const WhosPaying = React.createClass({
   handleClick: function () {}, // some made up method that mix wrote
+
+  componentDidMount: function() { // a special "lifecycle method"
+    console.log(document)
+  },
+
   render: function () {
 
     return (<div>Hello</div>)
@@ -49,7 +54,8 @@ const WhosPaying = React.createClass({
 const WhosPaying = React.createClass({
 
   handleClick: function(user) {
-    dispatch({type: 'USER_PAYING', payload: user.id})
+    const name = this.refs.name.value
+    dispatch({type: 'USER_PAYING', payload: { id: user.id, name: name }  })
   },
 
   // why can't we use fat arrow?
@@ -73,8 +79,10 @@ const WhosPaying = React.createClass({
               style={{backgroundColor: user.color}}
               onClick={ () => this.handleClick(user).bind(this) }
             >
+
              {user.name}
             </FlatButton>
+            <input type="text" ref='name' />
           )
         )}}
       </div>
@@ -83,7 +91,6 @@ const WhosPaying = React.createClass({
 })
 
 class WhosPaying extends React.Component {
-
   handleClick () {
   }
   
