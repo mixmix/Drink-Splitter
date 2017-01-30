@@ -18,6 +18,8 @@ const WhosPaying = (props) => {
       : 'white'
     return users[userKey]
   })
+  
+  const handleClick = (user) => dispatch({type: 'USER_PAYING', payload: user.id})
 
   return (
     <div>
@@ -27,17 +29,16 @@ const WhosPaying = (props) => {
         <FlatButton 
           key={user.id}
           style={{backgroundColor: user.color}}
-          onClick={() => { dispatch({type: 'USER_PAYING', payload: user.id}) } 
+          onClick={() => handleClick(user)}
         >
          {user.name}
         </FlatButton>
-      )
-    )}}
     </div>
   )
 }
 
 const WhosPaying = React.createClass({
+  handleClick: function () {}, // some made up method that mix wrote
   render: function () {
 
     return (<div>Hello</div>)
@@ -46,6 +47,10 @@ const WhosPaying = React.createClass({
 })
 
 const WhosPaying = React.createClass({
+
+  handleClick: function(user) {
+    dispatch({type: 'USER_PAYING', payload: user.id})
+  },
 
   // why can't we use fat arrow?
   render: function () {
@@ -66,7 +71,7 @@ const WhosPaying = React.createClass({
             <FlatButton 
               key={user.id}
               style={{backgroundColor: user.color}}
-              onClick={() => { dispatch({type: 'USER_PAYING', payload: user.id}) } 
+              onClick={ () => this.handleClick(user).bind(this) }
             >
              {user.name}
             </FlatButton>
@@ -77,9 +82,22 @@ const WhosPaying = React.createClass({
   }
 })
 
+class WhosPaying extends React.Component {
+
+  handleClick () {
+  }
+  
+  render() {
+
+  }
+}
+
 
 class WhosPaying extends React.Component {
 
+  handleClick (user) {
+    dispatch({type: 'USER_PAYING', payload: user.id})
+  }
   // methods are functions which belong to a particular instance (or copy of) a component
 
   render () {
@@ -100,7 +118,7 @@ class WhosPaying extends React.Component {
             <FlatButton 
               key={user.id}
               style={{backgroundColor: user.color}}
-              onClick={() => { dispatch({type: 'USER_PAYING', payload: user.id}) } 
+              onClick={() => this.handleClick(user).bind(this) }
             >
              {user.name}
             </FlatButton>
